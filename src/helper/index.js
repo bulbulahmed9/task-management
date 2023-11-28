@@ -32,3 +32,17 @@ export const getCurrentDate = () => {
 
   return `${dayOfWeek} || ${dayOfMonth} ${month}, ${year}`;
 };
+
+export const getStatusColor = (status) => {
+  let color = "";
+
+  if (status === "To Do") {
+    color = "#9b59b6";
+  } else if (status === "In Progress") {
+    color = "#2db7f5";
+  } else if (status === "Done") {
+    color = "#0a8080";
+  }
+
+  return color;
+};

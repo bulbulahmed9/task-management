@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import planning from "../assets/planning.png";
-import { bg } from "./utils";
-import { getCurrentDate } from "../helper";
+import { bg, getCurrentDate } from "../helper";
 
 const Topbar = () => {
   return (

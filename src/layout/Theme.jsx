@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { ConfigProvider } from "antd";
-import { colorPrimary } from "./utils";
-
+import { colorPrimary } from "../helper";
 
 const Theme = ({ children }) => {
   return (

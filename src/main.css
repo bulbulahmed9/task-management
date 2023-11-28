@@ -38,7 +38,7 @@ body {
 /* ================= Task Landing Start ================= */
 .landing-header {
   padding-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(233, 228, 228);
 }
@@ -59,6 +59,21 @@ body {
 }
 .pointer {
   cursor: pointer;
+}
+.mb-1{
+  margin-bottom: 5px;
+}
+.mb-2{
+  margin-bottom: 10px;
+}
+.mr-2{
+  margin-right: 10px;
+}
+.mt-18{
+  margin-top: 18px;
+}
+.w-100{
+  width: 100%;
 }
 /* ================= Common CSS End ================= */
 

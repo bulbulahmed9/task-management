@@ -6,6 +6,13 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 
+export const statusDDL = [
+  { value: "All", label: "All" },
+  { value: "To Do", label: "To Do" },
+  { value: "In Progress", label: "In Progress" },
+  { value: "Done", label: "Done" },
+];
+
 export const sampleData = [
   {
     title: "Task 1",

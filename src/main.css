@@ -8,9 +8,6 @@ body {
   background-color: #f0f0f0;
 }
 
-
-
-
 /* ================= Topbar Start ================= */
 .topbar {
   background: #0a8080;
@@ -22,9 +19,6 @@ body {
   margin-right: 10px;
 }
 /* ================= Topbar End ================= */
-
-
-
 
 /* ================= Main Content Start ================= */
 .container {
@@ -38,16 +32,13 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
-.container-header{
-    padding-top: 0;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgb(233, 228, 228);
+.container-header {
+  padding-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(233, 228, 228);
 }
 /* ================= Main Content End ================= */
-
-
-
 
 /* ================= Common CSS Start ================= */
 .d-flex {
@@ -62,4 +53,26 @@ body {
 .text-center {
   text-align: center;
 }
+.pointer {
+  cursor: pointer;
+}
 /* ================= Common CSS End ================= */
+
+/* ================= Scrollbar Start ================= */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  background: rgb(243, 239, 239);
+}
+
+::-webkit-scrollbar-track-piece {
+  background: rgb(250, 250, 250);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(165, 162, 162);
+}
+/* ================= Scrollbar End ================= */

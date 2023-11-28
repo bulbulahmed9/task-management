@@ -44,6 +44,17 @@ body {
 }
 /*================= Task Landing End ================= */
 
+
+
+
+/* *================= Task Create Start *================= */
+.task-create-edit{
+  height: 100%;
+}
+/* *================= Task Create End *================= */
+
+
+
 /* ================= Common CSS Start ================= */
 .d-flex {
   display: flex;
@@ -74,6 +85,12 @@ body {
 }
 .w-100{
   width: 100%;
+}
+.ant-modal-content{
+  height: 100%;
+}
+.text-right{
+  text-align: right;
 }
 /* ================= Common CSS End ================= */
 

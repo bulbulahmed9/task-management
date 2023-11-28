@@ -1,12 +1,21 @@
-import { Button, Col, DatePicker, Row, Select, Table } from "antd";
+import { Button, Col, DatePicker, Modal, Row, Select, Table } from "antd";
 import { columns, sampleData, statusDDL } from "./utils";
+import TaskCreateEdit from "./TaskCreateEdit";
+import { useState } from "react";
 
 const TaskLanding = () => {
+  const [visible, setVisible] = useState(false);
+
   return (
     <div>
       <div className="landing-header d-flex justify-content-between align-items-center">
         <h3>Task Landing</h3>
-        <Button size="small" htmlType="button" type="primary">
+        <Button
+          onClick={() => setVisible(true)}
+          size="small"
+          htmlType="button"
+          type="primary"
+        >
           Create Task
         </Button>
       </div>
@@ -33,7 +42,12 @@ const TaskLanding = () => {
           />
         </Col>
         <Col md={8} sm={12} xs={24}>
-          <Button className="mt-18" size="small" htmlType="button" type="primary">
+          <Button
+            className="mt-18"
+            size="small"
+            htmlType="button"
+            type="primary"
+          >
             View
           </Button>
         </Col>
@@ -47,6 +61,21 @@ const TaskLanding = () => {
         dataSource={sampleData}
         columns={columns}
       />
+      <Modal
+        destroyOnClose={true}
+        maskClosable={true}
+        title="Create Task"
+        centered={true}
+        open={visible}
+        onCancel={() => setVisible(false)}
+        width={550}
+        style={{
+          overflow: "scroll",
+        }}
+        footer={null}
+      >
+        <TaskCreateEdit />
+      </Modal>
     </div>
   );
 };

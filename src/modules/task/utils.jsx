@@ -13,6 +13,10 @@ export const statusDDL = [
   { value: "Done", label: "Done" },
 ];
 
+export const statusDDLWithoutAll = () => {
+  return statusDDL.filter((item) => item.label !== "All");
+};
+
 export const sampleData = [
   {
     title: "Task 1",

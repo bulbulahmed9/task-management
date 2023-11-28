@@ -23,7 +23,7 @@ body {
 /* ================= Main Content Start ================= */
 .container {
   width: 80%;
-  height: calc(100vh - 90px);
+  /* height: calc(100vh - 90px); */
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -32,13 +32,17 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
-.container-header {
+/* ================= Main Content End ================= */
+
+
+/* ================= Task Landing Start ================= */
+.landing-header {
   padding-top: 0;
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid rgb(233, 228, 228);
 }
-/* ================= Main Content End ================= */
+/*================= Task Landing End ================= */
 
 /* ================= Common CSS Start ================= */
 .d-flex {

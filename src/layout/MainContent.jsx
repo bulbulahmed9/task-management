@@ -1,4 +1,4 @@
-import TaskLanding from "../Modules/task/TaskLanding";
+import TaskLanding from "../modules/task/TaskLanding";
 
 const MainContent = () => {
   return (

@@ -92,6 +92,9 @@ body {
 .text-right{
   text-align: right;
 }
+.ant-form-item {
+  margin-bottom: 0 !important;
+}
 /* ================= Common CSS End ================= */
 
 /* ================= Scrollbar Start ================= */

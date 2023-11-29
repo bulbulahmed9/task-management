@@ -5,6 +5,8 @@ import {
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { SaveAPI } from "../../mockAPI";
+import { toast } from "react-toastify";
 
 export const statusDDL = [
   { value: "All", label: "All" },
@@ -161,3 +163,12 @@ export const columns = [
     ),
   },
 ];
+
+export const createTask = async (payload) => {
+  try {
+    let res = await SaveAPI(payload);
+    toast.success(res?.message);
+  } catch (error) {
+    toast.warn(error?.message || "Something went wrong");
+  }
+};

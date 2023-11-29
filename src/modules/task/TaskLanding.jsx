@@ -86,6 +86,7 @@ const TaskLanding = () => {
         dataSource={tasks}
         columns={columns}
         loading={loading}
+        key="id"
       />
       <Modal
         destroyOnClose={true}

@@ -24,36 +24,30 @@ export const SaveAPI = (payload) => {
 export const GetAPI = (status, date) => {
   return delay(1000)
     .then(() => {
-      //get task from local storage
       const taskList = db.getItem("task");
       const newTaskList = taskList ? JSON.parse(taskList) : [];
 
+      let responseData = [];
+
       if (status === "All" && date === null) {
-        return {
-          data: newTaskList,
-          status: 200,
-        };
+        responseData = newTaskList;
       } else if (status !== "All" && date !== null) {
         let data = newTaskList.filter(
           (item) => item.status === status && item?.dueDate === date
         );
-        return {
-          data: data,
-          status: 200,
-        };
+        responseData = data;
       } else if (status !== "All") {
         let data = newTaskList.filter((item) => item.status === status);
-        return {
-          data: data,
-          status: 200,
-        };
+        responseData = data;
       } else if (date !== null) {
         let data = newTaskList.filter((item) => item?.dueDate === date);
-        return {
-          data: data,
-          status: 200,
-        };
+        responseData = data;
       }
+
+      return {
+        data: responseData,
+        status: 200,
+      };
     })
     .catch((error) => {
       throw error;

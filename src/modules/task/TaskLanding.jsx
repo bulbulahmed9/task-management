@@ -84,7 +84,7 @@ const TaskLanding = () => {
         }}
         pagination={false}
         dataSource={tasks}
-        columns={columns}
+        columns={columns(setLoading, cb)}
         loading={loading}
         key="id"
       />

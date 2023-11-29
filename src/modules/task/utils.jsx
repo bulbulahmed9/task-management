@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Tag } from "antd";
 import { toast } from "react-toastify";
 import { dateFormatter, getStatusColor } from "../../helper";
-import { GetAPI, SaveAPI } from "../../mockAPI";
+import { DeleteAPI, GetAPI, SaveAPI } from "../../mockAPI";
 
 export const statusDDL = [
   { value: "All", label: "All" },
@@ -20,7 +20,7 @@ export const statusDDLWithoutAll = () => {
   return statusDDL.filter((item) => item.label !== "All");
 };
 
-export const columns = [
+export const columns = (setLoading, cb) => [
   {
     title: "Title",
     dataIndex: "title",
@@ -47,11 +47,16 @@ export const columns = [
     dataIndex: "action",
     width: "100px",
     key: "id",
-    render: () => (
+    render: (action, record) => (
       <div className="d-flex justify-content-between">
         <EditOutlined className="pointer" />
         <CheckCircleOutlined className="pointer" />
-        <DeleteOutlined className="pointer" />
+        <DeleteOutlined
+          onClick={() => {
+            deleteTask(setLoading, record?.id, cb);
+          }}
+          className="pointer"
+        />
       </div>
     ),
   },
@@ -92,6 +97,22 @@ export const getTask = async (setTasks, setLoading, values) => {
     setLoading(false);
   } catch (error) {
     setTasks([]);
+    toast.warn(error?.message || "Something went wrong");
+    setLoading(false);
+  }
+};
+
+export const deleteTask = async (setLoading, id, cb) => {
+  try {
+    setLoading(true);
+
+    const res = await DeleteAPI(id);
+
+    toast.success(res?.message);
+
+    setLoading(false);
+    cb?.();
+  } catch (error) {
     toast.warn(error?.message || "Something went wrong");
     setLoading(false);
   }

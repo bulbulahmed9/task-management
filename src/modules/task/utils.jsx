@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import { Tag } from "antd";
 import { toast } from "react-toastify";
 import { dateFormatter, getStatusColor } from "../../helper";
-import { DeleteAPI, GetAPI, SaveAPI } from "../../mockAPI";
+import { DeleteAPI, GetAPI, SaveAPI, StatusUpdateAPI } from "../../mockAPI";
+import { setStatusUpdateAction } from "../../redux/task/actions";
 
 export const statusDDL = [
   { value: "All", label: "All" },
@@ -20,7 +21,7 @@ export const statusDDLWithoutAll = () => {
   return statusDDL.filter((item) => item.label !== "All");
 };
 
-export const columns = (setLoading, cb) => [
+export const columns = (setLoading, cb, dispatch) => [
   {
     title: "Title",
     dataIndex: "title",
@@ -50,7 +51,12 @@ export const columns = (setLoading, cb) => [
     render: (action, record) => (
       <div className="d-flex justify-content-between">
         <EditOutlined className="pointer" />
-        <CheckCircleOutlined className="pointer" />
+        <CheckCircleOutlined
+          onClick={() => {
+            dispatch(setStatusUpdateAction(record?.id, record?.status));
+          }}
+          className="pointer"
+        />
         <DeleteOutlined
           onClick={() => {
             deleteTask(setLoading, record?.id, cb);
@@ -112,6 +118,23 @@ export const deleteTask = async (setLoading, id, cb) => {
 
     setLoading(false);
     cb?.();
+  } catch (error) {
+    toast.warn(error?.message || "Something went wrong");
+    setLoading(false);
+  }
+};
+
+export const statusUpdate = async (setLoading, id, status, cb) => {
+  try {
+    setLoading(true);
+
+    const res = await StatusUpdateAPI(id, status);
+
+    toast.success(res?.message);
+
+    setLoading(false);
+    cb?.();
+    
   } catch (error) {
     toast.warn(error?.message || "Something went wrong");
     setLoading(false);

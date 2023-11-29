@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initState = {
-  title : "Task Management App"
+  title: "Task Management App",
+  statusUpdate: { id: null, status: null },
 };
 
 export const taskSlice = createSlice({
   name: "task",
   initialState: initState,
   reducers: {
-    // setLogin: (state, action) => {
-    //   const { payload } = action;
-    //   state.isExpiredToken = false;
-    // },
+    setStatusUpdate: (state, action) => {
+      const { payload } = action;
+      state.statusUpdate = {
+        id: payload?.id,
+        status: payload?.status,
+      };
+    },
   },
 });

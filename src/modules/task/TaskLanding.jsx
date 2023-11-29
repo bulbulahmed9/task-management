@@ -1,11 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Col, DatePicker, Modal, Row, Select, Table } from "antd";
 import { useEffect, useState } from "react";
 import TaskCreateEdit from "./TaskCreateEdit";
 import { columns, getTask, statusDDL } from "./utils";
+import { useDispatch } from "react-redux";
+import TaskStatusUpdate from "./TaskStatusUpdate";
+import { setStatusUpdateAction } from "../../redux/task/actions";
 
 const initialValues = { status: statusDDL[0], dueDate: null };
 
 const TaskLanding = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +20,7 @@ const TaskLanding = () => {
     setVisible(false);
     setValues(initialValues);
     getTask(setTasks, setLoading, initialValues);
+    dispatch(setStatusUpdateAction(null, null));
   };
 
   useEffect(() => {
@@ -84,7 +90,7 @@ const TaskLanding = () => {
         }}
         pagination={false}
         dataSource={tasks}
-        columns={columns(setLoading, cb)}
+        columns={columns(setLoading, cb, dispatch)}
         loading={loading}
         key="id"
       />
@@ -103,6 +109,8 @@ const TaskLanding = () => {
       >
         <TaskCreateEdit cb={cb} />
       </Modal>
+      {/* Task Status Update Modal */}
+      <TaskStatusUpdate cb={cb} />
     </div>
   );
 };

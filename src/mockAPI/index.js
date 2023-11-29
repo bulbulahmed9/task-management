@@ -5,10 +5,8 @@ const db = localStorage;
 export const SaveAPI = (payload) => {
   return delay(1000)
     .then(() => {
-      
       const taskList = db.getItem("task");
       const newTaskList = taskList ? JSON.parse(taskList) : [];
-
 
       newTaskList.push(payload);
       db.setItem("task", JSON.stringify(newTaskList));
@@ -62,11 +60,37 @@ export const DeleteAPI = (id) => {
       const taskList = db.getItem("task");
       const newTasks = taskList ? JSON.parse(taskList) : [];
 
-      let newTasksFilter = newTasks.filter(item => item?.id !== id);
+      let newTasksFilter = newTasks.filter((item) => item?.id !== id);
       db.setItem("task", JSON.stringify(newTasksFilter));
 
       return {
-        message : "Task Deleted Successfully",
+        message: "Task Deleted Successfully",
+        status: 200,
+      };
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const StatusUpdateAPI = (id, status) => {
+  return delay(1000)
+    .then(() => {
+
+      const taskList = db.getItem("task");
+      const newTasks = taskList ? JSON.parse(taskList) : [];
+      const findIndex = newTasks.findIndex(item => item.id === id);
+
+      console.log("s",status)
+
+      if(findIndex > -1) {
+        newTasks[findIndex].status = status;
+      }
+
+      db.setItem("task", JSON.stringify(newTasks));
+
+      return {
+        message: "Status Updated Successfully",
         status: 200,
       };
 

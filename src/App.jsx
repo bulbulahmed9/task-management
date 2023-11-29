@@ -9,7 +9,7 @@ const App = () => {
     <Theme>
       <Topbar />
       <MainContent />
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
     </Theme>
   );
 };

@@ -1,13 +1,29 @@
 import { Button, Col, DatePicker, Modal, Row, Select, Table } from "antd";
-import { columns, sampleData, statusDDL } from "./utils";
+import { useEffect, useState } from "react";
 import TaskCreateEdit from "./TaskCreateEdit";
-import { useState } from "react";
+import { columns, getTask, statusDDL } from "./utils";
+
+const initialValues = { status: statusDDL[0], dueDate: null };
 
 const TaskLanding = () => {
   const [visible, setVisible] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [values, setValues] = useState(initialValues);
+
+  const cb = () => {
+    setVisible(false);
+    setValues(initialValues);
+    getTask(setTasks, setLoading, initialValues);
+  };
+
+  useEffect(() => {
+    getTask(setTasks, setLoading, values);
+  }, []);
 
   return (
     <div>
+      {/* <Loading loading={loading} /> */}
       <div className="landing-header d-flex justify-content-between align-items-center">
         <h3>Task Landing</h3>
         <Button
@@ -26,7 +42,10 @@ const TaskLanding = () => {
             showSearch
             placeholder="Select Status"
             optionFilterProp="children"
-            onChange={() => {}}
+            value={values?.status}
+            onChange={(value, option) => {
+              setValues({ ...values, status: option });
+            }}
             options={statusDDL}
             className="w-100"
             size="small"
@@ -38,7 +57,10 @@ const TaskLanding = () => {
             size="small"
             className="w-100"
             placeholder="Due Date"
-            onChange={() => {}}
+            value={values?.dueDate}
+            onChange={(dueDate) => {
+              setValues({ ...values, dueDate });
+            }}
           />
         </Col>
         <Col md={8} sm={12} xs={24}>
@@ -47,6 +69,9 @@ const TaskLanding = () => {
             size="small"
             htmlType="button"
             type="primary"
+            onClick={() => {
+              getTask(setTasks, setLoading, values);
+            }}
           >
             View
           </Button>
@@ -58,8 +83,9 @@ const TaskLanding = () => {
           y: 400,
         }}
         pagination={false}
-        dataSource={sampleData}
+        dataSource={tasks}
         columns={columns}
+        loading={loading}
       />
       <Modal
         destroyOnClose={true}
@@ -74,7 +100,7 @@ const TaskLanding = () => {
         }}
         footer={null}
       >
-        <TaskCreateEdit />
+        <TaskCreateEdit cb={cb} />
       </Modal>
     </div>
   );

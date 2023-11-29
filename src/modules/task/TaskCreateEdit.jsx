@@ -1,29 +1,31 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
+import { useState } from "react";
+import Loading from "../../common/Loading";
 import { createTask, statusDDLWithoutAll } from "./utils";
-import { useEffect } from "react";
-import dayjs from "dayjs";
 
-const TaskCreateEdit = () => {
+const statusDDL = statusDDLWithoutAll();
+
+const initialValues = {
+  title: null,
+  description: null,
+  dueDate: null,
+  status: statusDDL[0],
+};
+
+const TaskCreateEdit = ({ cb }) => {
   const [form] = Form.useForm();
-
-  // useEffect(() => {
-  //   createTask({ id: 1 });
-  // }, []);
-
-  // const values = form.getFieldsValue();
-  // console.log(values);
+  const [loading, setLoading] = useState(false);
 
   return (
     <Form
       name="task"
-      initialValues={{ title: null }}
       form={form}
+      initialValues={initialValues}
       onFinish={(values) => {
-        // const values = form.getFieldsValue();
-        console.log(values);
-        // await form.validateFields();
+        createTask(setLoading, values, cb);
       }}
     >
+      <Loading loading={loading} />
       <div className="task-create-edit">
         <Row>
           <Col md={24} sm={24} xs={24}>
@@ -33,14 +35,10 @@ const TaskCreateEdit = () => {
               rules={[{ required: true, message: "Title is required" }]}
             >
               <Input
-                value={null}
                 name="title"
                 size="small"
                 className="w-100 mb-2"
                 placeholder="Title"
-                // onChange={(value) => {
-                //   form.setFieldsValue("title", value);
-                // }}
               />
             </Form.Item>
           </Col>
@@ -55,9 +53,7 @@ const TaskCreateEdit = () => {
                 className="w-100 mb-2"
                 placeholder="Description"
                 name="description"
-                onChange={(value) => {
-                  form.setFieldsValue("description", value);
-                }}
+                type="text"
               />
             </Form.Item>
           </Col>
@@ -72,10 +68,6 @@ const TaskCreateEdit = () => {
                 className="w-100 mb-2"
                 placeholder="Due Date"
                 name="dueDate"
-                // value={value ? dayjs(value, dateFormat) : null}
-                onChange={(date, dateString) => {
-                  form.setFieldsValue("dueDate", dateString);
-                }}
               />
             </Form.Item>
           </Col>
@@ -89,11 +81,10 @@ const TaskCreateEdit = () => {
                 showSearch
                 name="status"
                 placeholder="Select Status"
-                optionFilterProp="children"
-                onChange={(value) => {
-                  form.setFieldsValue("status", value);
+                onChange={(value, option) => {
+                  form.setFieldsValue({ status: option });
                 }}
-                options={statusDDLWithoutAll()}
+                options={statusDDL}
                 className="w-100"
                 size="small"
               />

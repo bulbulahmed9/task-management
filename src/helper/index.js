@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const getCurrentDate = () => {
   const months = [
     "January",
@@ -47,8 +49,11 @@ export const getStatusColor = (status) => {
   return color;
 };
 
-
 export const colorPrimary = "#0a8080";
 export const bg = {
   backgroundColor: colorPrimary,
+};
+
+export const dateFormatter = (date) => {
+  return date.format("YYYY-MM-DD");
 };

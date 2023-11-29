@@ -34,7 +34,6 @@ body {
 }
 /* ================= Main Content End ================= */
 
-
 /* ================= Task Landing Start ================= */
 .landing-header {
   padding-top: 0;
@@ -44,16 +43,11 @@ body {
 }
 /*================= Task Landing End ================= */
 
-
-
-
 /* *================= Task Create Start *================= */
-.task-create-edit{
+.task-create-edit {
   height: 100%;
 }
 /* *================= Task Create End *================= */
-
-
 
 /* ================= Common CSS Start ================= */
 .d-flex {
@@ -71,29 +65,42 @@ body {
 .pointer {
   cursor: pointer;
 }
-.mb-1{
+.mb-1 {
   margin-bottom: 5px;
 }
-.mb-2{
+.mb-2 {
   margin-bottom: 10px;
 }
-.mr-2{
+.mr-2 {
   margin-right: 10px;
 }
-.mt-18{
+.mt-18 {
   margin-top: 18px;
 }
-.w-100{
+.w-100 {
   width: 100%;
 }
-.ant-modal-content{
+.ant-modal-content {
   height: 100%;
 }
-.text-right{
+.text-right {
   text-align: right;
 }
 .ant-form-item {
   margin-bottom: 0 !important;
+}
+.global-loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: block;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* ================= Common CSS End ================= */
 

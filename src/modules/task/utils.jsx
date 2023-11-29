@@ -1,12 +1,12 @@
-import { Tag } from "antd";
-import { getStatusColor } from "../../helper";
 import {
   CheckCircleOutlined,
   DeleteOutlined,
   EditOutlined,
 } from "@ant-design/icons";
-import { SaveAPI } from "../../mockAPI";
+import { Tag } from "antd";
 import { toast } from "react-toastify";
+import { dateFormatter, getStatusColor } from "../../helper";
+import { GetAPI, SaveAPI } from "../../mockAPI";
 
 export const statusDDL = [
   { value: "All", label: "All" },
@@ -164,11 +164,38 @@ export const columns = [
   },
 ];
 
-export const createTask = async (payload) => {
+export const createTask = async (setLoading, values, cb) => {
   try {
+    setLoading(true);
+    const { title, description, dueDate, status } = values;
+    const payload = {
+      title,
+      description,
+      dueDate: dateFormatter(dueDate),
+      status: status?.label,
+    };
     let res = await SaveAPI(payload);
+    setLoading(false);
     toast.success(res?.message);
+    cb?.();
   } catch (error) {
+    setLoading(false);
     toast.warn(error?.message || "Something went wrong");
+  }
+};
+
+export const getTask = async (setTasks, setLoading, values) => {
+  try {
+    console.log("v", values);
+    setLoading(true);
+
+    const date = values?.dueDate ? dateFormatter(values?.dueDate) : null;
+    const res = await GetAPI(values?.status?.label, date);
+    setTasks(res?.data);
+    setLoading(false);
+  } catch (error) {
+    setTasks([]);
+    toast.warn(error?.message || "Something went wrong");
+    setLoading(false);
   }
 };

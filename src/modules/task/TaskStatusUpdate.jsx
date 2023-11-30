@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Col, Form, Modal, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 import { shallowEqual, useDispatch } from "react-redux";

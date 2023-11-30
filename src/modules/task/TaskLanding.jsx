@@ -21,8 +21,7 @@ const TaskLanding = () => {
 
   const cb = () => {
     setVisible(false);
-    setValues(initialValues);
-    getTask(setTasks, setLoading, initialValues);
+    getTask(setTasks, setLoading, values);
     dispatch(setStatusUpdateAction(null, null));
     dispatch(setTaskEditAction(null, null, null, null, null));
   };
@@ -33,7 +32,6 @@ const TaskLanding = () => {
 
   return (
     <div>
-      {/* <Loading loading={loading} /> */}
       <div className="landing-header d-flex justify-content-between align-items-center">
         <h3>Task Landing</h3>
         <Button

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import Loading from "../../common/Loading";

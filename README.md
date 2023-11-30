@@ -30,7 +30,7 @@ This Task Manager application allows users to create, manage, and organize tasks
 
 <!-- ![Task Manager Demo](link-to-demo-gif-or-video.gif) -->
 
-[Link to live demo](link-to-live-demo-if-available) *(if applicable)*
+[Link to live demo](https://task-management-opal-omega.vercel.app/)
 
 ## Installation
 

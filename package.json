@@ -6,7 +6,6 @@
     "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.6.0",
     "antd": "^5.11.5",
-    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^7.2.4",

@@ -1,7 +1,9 @@
 import { Button, Col, DatePicker, Form, Input, Row, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../common/Loading";
-import { createTask, statusDDLWithoutAll } from "./utils";
+import { createTask, statusDDLWithoutAll, updateTask } from "./utils";
+import { shallowEqual, useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const statusDDL = statusDDLWithoutAll();
 
@@ -13,8 +15,24 @@ const initialValues = {
 };
 
 const TaskCreateEdit = ({ cb }) => {
+  const { id, status, title, description, dueDate } = useSelector(
+    (state) => state?.task?.taskEdit || {},
+    shallowEqual
+  );
+
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      form.setFieldsValue({
+        status: { value: status, label: status },
+        title,
+        description,
+        dueDate: dayjs(dueDate, "YYYY-MM-DD"),
+      });
+    }
+  }, [id]);
 
   return (
     <Form
@@ -22,7 +40,11 @@ const TaskCreateEdit = ({ cb }) => {
       form={form}
       initialValues={initialValues}
       onFinish={(values) => {
-        createTask(setLoading, values, cb);
+        if(id){
+          updateTask(setLoading, values, cb, id)
+        }else{
+          createTask(setLoading, values, cb);
+        }
       }}
     >
       <Loading loading={loading} />
@@ -97,7 +119,7 @@ const TaskCreateEdit = ({ cb }) => {
               htmlType="submit"
               type="primary"
             >
-              Create
+              {id ? "Update" : "Create"}
             </Button>
           </Col>
         </Row>

@@ -81,8 +81,6 @@ export const StatusUpdateAPI = (id, status) => {
       const newTasks = taskList ? JSON.parse(taskList) : [];
       const findIndex = newTasks.findIndex(item => item.id === id);
 
-      console.log("s",status)
-
       if(findIndex > -1) {
         newTasks[findIndex].status = status;
       }
@@ -100,10 +98,33 @@ export const StatusUpdateAPI = (id, status) => {
     });
 };
 
-export const EditAPI = () => {
+export const updateAPI = (payload) => {
+  console.log("payload",payload)
   return delay(1000)
     .then(() => {
-      return [];
+
+      const {id, title, description, dueDate, status} = payload || {};
+
+      const taskList = db.getItem("task");
+      const newTasks = taskList ? JSON.parse(taskList) : [];
+      const findIndex = newTasks.findIndex(item => item.id === id);
+
+      if(findIndex > -1) {
+        newTasks[findIndex].id = id;
+        newTasks[findIndex].title = title;
+        newTasks[findIndex].description = description;
+        newTasks[findIndex].dueDate = dueDate;
+        newTasks[findIndex].status = status;
+      }
+
+      db.setItem("task", JSON.stringify(newTasks));
+
+      return {
+        message: "Task Updated Successfully",
+        status: 200,
+      };
+
+      
     })
     .catch((error) => {
       throw error;

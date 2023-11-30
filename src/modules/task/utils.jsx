@@ -7,8 +7,11 @@ import { v4 as uuidv4 } from "uuid";
 import { Tag } from "antd";
 import { toast } from "react-toastify";
 import { dateFormatter, getStatusColor } from "../../helper";
-import { DeleteAPI, GetAPI, SaveAPI, StatusUpdateAPI } from "../../mockAPI";
-import { setStatusUpdateAction } from "../../redux/task/actions";
+import { DeleteAPI, GetAPI, SaveAPI, StatusUpdateAPI, updateAPI } from "../../mockAPI";
+import {
+  setStatusUpdateAction,
+  setTaskEditAction,
+} from "../../redux/task/actions";
 
 export const statusDDL = [
   { value: "All", label: "All" },
@@ -21,7 +24,7 @@ export const statusDDLWithoutAll = () => {
   return statusDDL.filter((item) => item.label !== "All");
 };
 
-export const columns = (setLoading, cb, dispatch) => [
+export const columns = (setLoading, cb, dispatch, setVisible) => [
   {
     title: "Title",
     dataIndex: "title",
@@ -50,7 +53,16 @@ export const columns = (setLoading, cb, dispatch) => [
     key: "id",
     render: (action, record) => (
       <div className="d-flex justify-content-between">
-        <EditOutlined className="pointer" />
+        <EditOutlined
+          onClick={() => {
+            const { id, title, description, dueDate, status } = record || {};
+            dispatch(
+              setTaskEditAction(id, title, description, dueDate, status)
+            );
+            setVisible(true);
+          }}
+          className="pointer"
+        />
         <CheckCircleOutlined
           onClick={() => {
             dispatch(setStatusUpdateAction(record?.id, record?.status));
@@ -134,9 +146,32 @@ export const statusUpdate = async (setLoading, id, status, cb) => {
 
     setLoading(false);
     cb?.();
-    
   } catch (error) {
     toast.warn(error?.message || "Something went wrong");
     setLoading(false);
+  }
+};
+
+export const updateTask = async (setLoading, values, cb, id) => {
+  try {
+    setLoading(true);
+
+    const { title, description, dueDate, status } = values || {};
+    const payload = {
+      id,
+      title,
+      description,
+      dueDate: dateFormatter(dueDate),
+      status: status?.label,
+    };
+
+    let res = await updateAPI(payload);
+    setLoading(false);
+    toast.success(res?.message);
+
+    cb?.();
+  } catch (error) {
+    setLoading(false);
+    toast.warn(error?.message || "Something went wrong");
   }
 };

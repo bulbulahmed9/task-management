@@ -5,7 +5,10 @@ import TaskCreateEdit from "./TaskCreateEdit";
 import { columns, getTask, statusDDL } from "./utils";
 import { useDispatch } from "react-redux";
 import TaskStatusUpdate from "./TaskStatusUpdate";
-import { setStatusUpdateAction } from "../../redux/task/actions";
+import {
+  setStatusUpdateAction,
+  setTaskEditAction,
+} from "../../redux/task/actions";
 
 const initialValues = { status: statusDDL[0], dueDate: null };
 
@@ -21,6 +24,7 @@ const TaskLanding = () => {
     setValues(initialValues);
     getTask(setTasks, setLoading, initialValues);
     dispatch(setStatusUpdateAction(null, null));
+    dispatch(setTaskEditAction(null, null, null, null, null));
   };
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const TaskLanding = () => {
         }}
         pagination={false}
         dataSource={tasks}
-        columns={columns(setLoading, cb, dispatch)}
+        columns={columns(setLoading, cb, dispatch, setVisible)}
         loading={loading}
         key="id"
       />
@@ -100,7 +104,10 @@ const TaskLanding = () => {
         title="Create Task"
         centered={true}
         open={visible}
-        onCancel={() => setVisible(false)}
+        onCancel={() => {
+          setVisible(false);
+          dispatch(setTaskEditAction(null, null, null, null, null));
+        }}
         width={550}
         style={{
           overflow: "scroll",
